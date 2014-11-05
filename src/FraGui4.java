@@ -1,8 +1,6 @@
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Scanner;
 
 public class FraGui4 extends JFrame {
 
@@ -15,7 +13,6 @@ public class FraGui4 extends JFrame {
     private JTextField txtMoney;
     private int nTotal = 1000;
     private int nBet = 0;
-    //private int nTotal;
     private JPanel panEast;
     private JPanel panInput; // hit, stand, new, etc.
     private JLabel lblStatus; // status sMessage label
@@ -28,27 +25,20 @@ public class FraGui4 extends JFrame {
     private JButton btnStand;
     private JButton btnNewGame;
     private JButton btnBet;
+    private JRadioButton btn5 = new JRadioButton("$5");
+    private JRadioButton btn10 = new JRadioButton("$10");
+    private JRadioButton btn20 = new JRadioButton("$20");
+    private JRadioButton btn50 = new JRadioButton("$50");
+    private JRadioButton btn100 = new JRadioButton("$100");
     private boolean bInGame = false;
 
-    public static void main(String[] args) {
-        FraGui3 myFrame = new FraGui3();
-        myFrame.setPreferredSize(new Dimension(1000, 400));
-        myFrame.pack();
-        myFrame.getContentPane().setBackground(Color.GREEN);
-        myFrame.setLocationRelativeTo(null);
-        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        myFrame.setVisible(true);
-    }
 
     public FraGui4() {
-        init(); // to initalize the GUI
-        newGame();
+        init();
     }//constructor
 
-    // initialize GUI components
     public void init() {
-
-        setSize(700, 400);
+        setSize(1000, 400);
         setLayout(new BorderLayout()); // JFrame layout
         lblStatus = new JLabel(sMessage);
         lblMoney = new JLabel(sMoney);
@@ -59,15 +49,18 @@ public class FraGui4 extends JFrame {
         panBoard = new JPanel(new GridLayout(2, 6)); // 2 players - up to 6 cards each
         panInput = new JPanel(); // defaults to FlowLayout
         panEast = new JPanel();
-
-        //panSEast = new JPanel();
+        ButtonGroup betgroup = new ButtonGroup();
         add(lblStatus, BorderLayout.NORTH);
         add(panEast, BorderLayout.EAST);
         add(panBoard, BorderLayout.CENTER);
         add(panInput, BorderLayout.SOUTH);
         Font font = new Font("Copperplate Gothic Bold", Font.PLAIN, 16);
+        panBoard.setBackground(Color.green);
+        panEast.setBackground(Color.green);
+        panInput.setBackground(Color.green);
         lblStatus.setFont(font);
         lblStatus.setForeground(Color.BLACK);
+
 
         for (int i = 0; i < 6; i++) {
             arLblPlayer[i] = new JLabel();
@@ -82,48 +75,51 @@ public class FraGui4 extends JFrame {
             panBoard.add(arLblPlayer[i]);
         }
 
+
         btnHit = new JButton("Hit!");
         btnHit.addActionListener(new HitActionListener());
+
 
         btnStand = new JButton("Stand!");
         btnStand.addActionListener(new StandActionListener());
 
+
         btnNewGame = new JButton("New game");
         btnNewGame.addActionListener(new NewgameActionListener());
+
 
         btnBet = new JButton("Bet");
         btnBet.addActionListener(new BetActionListener());
         panInput.add(btnBet);
+        btn5.setBackground(Color.green);
+        btn10.setBackground(Color.green);
+        btn20.setBackground(Color.green);
+        btn50.setBackground(Color.green);
+        btn100.setBackground(Color.green);
 
-        panEast.add(txtMoney);
+        betgroup.add(btn5);
+        betgroup.add(btn10);
+        betgroup.add(btn20);
+        betgroup.add(btn50);
+        betgroup.add(btn100);
+        panEast.add(btn5);
+        panEast.add(btn10);
+        panEast.add(btn20);
+        panEast.add(btn50);
+        panEast.add(btn100);
         panEast.add(lblMoney);
         panEast.add(lblBet);
         sBet = "0";
         sMoney = "Money: $" + nTotal;
-
     }
 
     public void newGame() {
-        // clear the board
-        String sName;
-        //Scanner sin = new Scanner(System.in);
-        //System.out.println("Enter your name");
-       // sName = sin.next();
-        for (int i = 0; i < 6; i++) {
-            arLblPlayer[i].setIcon(null);
-            arLblDealer[i].setIcon(null);
-        }
-
         // initialize the deck and hands (or do this in a newGame method)
-        arLblDealer[0].setText("Dealer's Cards");
-        arLblPlayer[0].setText("Your Cards");
-
         bInGame = true;
         deck = new Deck();
         playerHand = new BlackjackHand();
         dealerHand = new BlackjackHand();
         deck.shuffle();
-
         //deals cards
         dealerHand.addCard(deck.dealCard());
         dealerHand.addCard(deck.dealCard());
@@ -162,7 +158,6 @@ public class FraGui4 extends JFrame {
         // 2) update any status messages
         lblStatus.setText(sMessage);
         lblMoney.setText(sMoney);
-//        arLblPlayer.setText(sName);
 
     }
 
@@ -200,9 +195,8 @@ public class FraGui4 extends JFrame {
                     nTotal = nTotal + nBet;
                     nBet = 0;
                 } else {
-                    sMessage = "You have " + playerHand.getBlackjackValue() + ".  Hit or Stand?";
+                    sMessage = "Hit or Stand?";
                 }
-
                 redraw();
             }
         }
@@ -256,7 +250,11 @@ public class FraGui4 extends JFrame {
     class NewgameActionListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            txtMoney.enable();
+            btn5.setEnabled(true);
+            btn10.setEnabled(true);
+            btn20.setEnabled(true);
+            btn50.setEnabled(true);
+            btn100.setEnabled(true);
             panInput.remove(btnHit);
             panInput.remove(btnStand);
             panInput.remove(btnNewGame);
@@ -265,12 +263,20 @@ public class FraGui4 extends JFrame {
             lblBet.setText(sBet);
             sMoney = "Money: $" + nTotal;
             lblMoney.setText(sMoney);
+            sMessage ="Please place your bet";
+            lblStatus.setText(sMessage);
             if (bInGame == true) {
                 sMessage = "You still have to finish this game!";
                 redraw();
                 return;
             } else {
-                newGame();
+                //clear board
+                for (int i = 0; i < 6; i++) {
+                    arLblPlayer[i].setIcon(null);
+                    arLblDealer[i].setIcon(null);
+                }
+              //  arLblDealer[0].setText("Dealer's Cards");
+               // arLblPlayer[0].setText("Your Cards");
             }
         }
     }
@@ -279,8 +285,23 @@ public class FraGui4 extends JFrame {
 
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == btnBet) {
-                sBet = txtMoney.getText();
-                nBet = Integer.parseInt(sBet);
+                newGame();
+                if (btn5.isSelected() == true) {
+                    nBet = 5;
+                }
+                if (btn10.isSelected() == true) {
+                    nBet = 10;
+                }
+                if (btn20.isSelected() == true) {
+                    nBet = 20;
+                }
+                if (btn50.isSelected() == true) {
+                    nBet = 50;
+                }
+                if (btn100.isSelected() == true) {
+                    nBet = 100;
+                }
+
 
                 if (nTotal == 0) {
                     sMessage = "Sorry game over, you're all out of money.";
@@ -294,7 +315,11 @@ public class FraGui4 extends JFrame {
                     panInput.add(btnHit);
                     panInput.add(btnStand);
                     panInput.add(btnNewGame);
-                    txtMoney.disable();
+                    btn5.setEnabled(false);
+                    btn10.setEnabled(false);
+                    btn20.setEnabled(false);
+                    btn50.setEnabled(false);
+                    btn100.setEnabled(false);
                     lblBet.setText("Your bet is $" + nBet);
                     sMessage = "You have " + playerHand.getBlackjackValue() + ".  Hit or Stand?";
                     lblStatus.setText(sMessage);
