@@ -1,20 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author Andrew13
- */
+import java.awt.Color;
+import java.awt.Dimension;
+import javax.swing.JFrame;
+
+
 public class Main {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
-    
+     public static void main(String[] args) {
+         FraGui4 myFrame = new FraGui4();
+        //PanMenu panMenu = new PanMenu();
+        myFrame.setPreferredSize(new Dimension(1000, 400));
+        myFrame.pack();
+        myFrame.getContentPane().setBackground(Color.green);
+        myFrame.setLocationRelativeTo(null);
+        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        myFrame.setVisible(true);
+        myFrame.setTitle("Black Jack");
+}
 }
