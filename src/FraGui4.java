@@ -82,7 +82,7 @@ public class FraGui4 extends JFrame {
         for (int i = 0; i < 6; i++) {
             panBoard.add(arLblPlayer[i]);
         }
-        
+      
         String sName;
         sName = JOptionPane.showInputDialog("Enter Your Name");
         
