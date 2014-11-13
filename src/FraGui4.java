@@ -3,10 +3,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Scanner;
+import java.awt.GradientPaint;
 
 public class FraGui4 extends JFrame {
 
     Color NewGreen = new Color(26, 134, 58);
+    Color NewBlue = new Color(32, 0, 210);
+    Color NewRed = new Color(255, 17, 23);
     private BlackjackHand playerHand;
     private JLabel[] arLblPlayer;
     private BlackjackHand dealerHand;
@@ -36,16 +39,6 @@ public class FraGui4 extends JFrame {
     private JRadioButton btn100 = new JRadioButton("$100");
     private boolean bInGame = false;
 
-    /* public static void main(String[] args) {
-     FraGui3 myFrame = new FraGui3();
-     myFrame.setPreferredSize(new Dimension(1000, 400));
-     myFrame.pack();
-     myFrame.setLocationRelativeTo(null);
-     myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-     myFrame.setVisible(true);
-     myFrame.setTitle("Black Jack");
-     }
-     */
     public FraGui4() {
         init();
     }//constructor
@@ -68,7 +61,7 @@ public class FraGui4 extends JFrame {
         add(panBet, BorderLayout.EAST);
         add(panBoard, BorderLayout.CENTER);
         add(panInput, BorderLayout.SOUTH);
-        Font font = new Font("Copperplate Gothic Bold", Font.PLAIN, 16);
+        Font font = new Font("Copperplate Gothic Bold", Font.PLAIN, 18);
         panBoard.setBackground(NewGreen);
         panBet.setBackground(NewGreen);
         panInput.setBackground(NewGreen);
@@ -91,9 +84,7 @@ public class FraGui4 extends JFrame {
         }
         
         String sName;
-        Scanner sin = new Scanner(System.in);
-        System.out.println(" Enter Your Name: ");
-        sName = sin.next();
+        sName = JOptionPane.showInputDialog("Enter Your Name");
         
         arLblDealer[0].setText("Dealer's Cards");
         arLblPlayer[0].setText(sName);
