@@ -1,3 +1,5 @@
+//http://ics3ui.sgrondin.ca/ss07/index.html
+//https://github.com/MrGFHCI/2013094UISummatives/tree/master/PhilsBlackJack
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,12 +34,13 @@ public class FraGui4 extends JFrame {
     private JButton btnStand;
     private JButton btnNewGame;
     private JButton btnBet;
-    private JRadioButton btn5 = new JRadioButton("$5");
-    private JRadioButton btn10 = new JRadioButton("$10");
-    private JRadioButton btn20 = new JRadioButton("$20");
-    private JRadioButton btn50 = new JRadioButton("$50");
-    private JRadioButton btn100 = new JRadioButton("$100");
+    private final JRadioButton btn5 = new JRadioButton("$5");
+    private final JRadioButton btn10 = new JRadioButton("$10");
+    private final JRadioButton btn20 = new JRadioButton("$20");
+    private final JRadioButton btn50 = new JRadioButton("$50");
+    private final JRadioButton btn100 = new JRadioButton("$100");
     private boolean bInGame = false;
+
 
     public FraGui4() {
         init();
@@ -88,6 +91,7 @@ public class FraGui4 extends JFrame {
         
         arLblDealer[0].setText("Dealer's Cards");
         arLblPlayer[0].setText(sName);
+        
         btnHit = new JButton("Hit");
         btnHit.addActionListener(new HitActionListener());
 
