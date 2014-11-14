@@ -1,5 +1,7 @@
-//http://ics3ui.sgrondin.ca/ss07/index.html
-//https://github.com/MrGFHCI/2013094UISummatives/tree/master/PhilsBlackJack
+/*http://ics3ui.sgrondin.ca/ss07/index.html
+http://ics3ui.sgrondin.ca/ss15/Many%20Panels.html
+https://github.com/MrGFHCI/2013094UISummatives/tree/master/PhilsBlackJack/http://www.otherwise.com/Lessons/ColorsInJava.html
+*/
 
 import javax.swing.*;
 import java.awt.*;
